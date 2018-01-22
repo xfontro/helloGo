@@ -6,7 +6,7 @@ import (
 )
 
 func getHelloWorld(w http.ResponseWriter, r *http.Request) {
-	fmt.Println("Hello World!")
+	fmt.Fprintf(w, "Hello World!, call to endpoint %s!", r.URL.Path[1:])
 }
 
 func healthCheck(w http.ResponseWriter, r *http.Request) {
