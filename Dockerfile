@@ -1,5 +1,5 @@
 FROM golang:latest
-MAINTAINER Xavier Fontrodona
+LABEL maintainer="Xavier Fontrodona"
 
 ENV APP_DIR=/app
 RUN mkdir $APP_DIR
