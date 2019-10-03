@@ -1,5 +1,4 @@
 FROM golang:latest
-MAINTAINER Xavier Fontrodona
 
 ENV APP_DIR=/app
 RUN mkdir $APP_DIR
