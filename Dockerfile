@@ -5,14 +5,14 @@ RUN mkdir $APP_DIR
 WORKDIR $APP_DIR
 ADD . $APP_DIR/
 
-RUN go build -o main .
+RUN CGO_ENABLED=0 go build -o main .
 
 
-FROM scratch
+FROM scratch AS production
 
 WORKDIR /app
 COPY --from=build-env /app/main /app/
 
 EXPOSE 8080
 
-ENTRYPOINT [ "./main" ]
+ENTRYPOINT [ "/app/main" ]
