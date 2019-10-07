@@ -8,7 +8,7 @@ import (
 
 type SampleJSONResponse struct {
 	Message string
-        Path    string
+	Path    string
 }
 
 func getHelloWorld(w http.ResponseWriter, r *http.Request) {
@@ -20,7 +20,7 @@ func healthCheck(w http.ResponseWriter, r *http.Request) {
 }
 
 func getJSONresponse(w http.ResponseWriter, r *http.Request) {
-        res := SampleJSONResponse{"A JSON message", r.URL.Path[1:]}
+  res := SampleJSONResponse{"A JSON message", r.URL.Path[1:]}
 
 	js, err := json.Marshal(res)
 	if err != nil {
@@ -28,12 +28,14 @@ func getJSONresponse(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
+  fmt.Printf("%s\n", js)
+
 	w.Header().Set("Content-Type", "application/json")
 	w.Write(js)
 }
 
 func main() {
-        http.HandleFunc("/", getJSONresponse)
+  http.HandleFunc("/", getJSONresponse)
 	http.HandleFunc("/hello", getHelloWorld)
 	http.HandleFunc("/health", healthCheck)
 	http.ListenAndServe(":8080", nil)
