@@ -1,13 +1,18 @@
-FROM golang:latest
-LABEL maintainer="Xavier Fontrodona"
+FROM golang:latest AS build-env
 
 ENV APP_DIR=/app
 RUN mkdir $APP_DIR
 WORKDIR $APP_DIR
 ADD ./app/* $APP_DIR/
 
-RUN go build -o main .
+RUN CGO_ENABLED=0 go build -o main .
+
+
+FROM scratch AS production
+
+WORKDIR /app
+COPY --from=build-env /app/main /app/
 
 EXPOSE 8080
-CMD [ "/app/main" ]
 
+ENTRYPOINT [ "/app/main" ]
