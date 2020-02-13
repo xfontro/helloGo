@@ -3,7 +3,7 @@ FROM golang:latest AS build-env
 ENV APP_DIR=/app
 RUN mkdir $APP_DIR
 WORKDIR $APP_DIR
-ADD . $APP_DIR/
+ADD ./app/* $APP_DIR/
 
 RUN CGO_ENABLED=0 go build -o main .
 
